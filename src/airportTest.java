@@ -11,7 +11,7 @@ class airportTest {
 	
 	WebDriver driver = null;
 	
-	@Disabled
+	@Test
 	void testAir01() throws InterruptedException {
 		
 		System.setProperty("webdriver.edge.driver", "D:\\msedgedriver.exe");
@@ -121,7 +121,7 @@ class airportTest {
 		
 	}
 	
-	@Test
+	@Disabled
 	void testAir02Error() throws InterruptedException {
 		
 		System.setProperty("webdriver.edge.driver", "D:\\msedgedriver.exe");
@@ -241,6 +241,7 @@ class airportTest {
 		assertEquals("กรุณาใส่ ยืนยันรหัสประจำตัว ให้ตรงกับ รหัสประจำตัว", resultError5);
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("/html/body/div[5]/div[2]/button[1]")).click();
+		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[@id=\"pin\"]")).clear();
 		driver.findElement(By.xpath("//*[@id=\"confirm_pin\"]")).clear();
 		Thread.sleep(3000);
