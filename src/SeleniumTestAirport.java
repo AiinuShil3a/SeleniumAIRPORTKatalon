@@ -1,18 +1,26 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.JavascriptExecutor;
 
-class airportTest {
+
+class SeleniumTestAirport {
 	
 	WebDriver driver = null;
 	
 	@Test
-	void testAir01() throws InterruptedException {
+	void testAir01() throws InterruptedException, IOException {
 		
 		System.setProperty("webdriver.edge.driver", "D:\\msedgedriver.exe");
 		driver = new EdgeDriver();
@@ -20,6 +28,7 @@ class airportTest {
 		//Home
 		driver.get("https://www.thaiairways.com/th_TH/rop/index.page");
 		driver.manage().window().maximize();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		driver.findElement(By.xpath("//*[@id=\"1439966213483\"]/div[2]/div/div/div/div[1]/div[3]/div[2]/span/a")).click();
 		String result1 = driver.findElement(By.xpath("//*[@id=\"rop-app\"]/div/div/div[1]/article/h1")).getText();
 		//Register-p1
@@ -62,6 +71,7 @@ class airportTest {
 		driver.findElement(By.xpath("//*[@id=\"address1\"]")).sendKeys("2514");
 		driver.findElement(By.xpath("//*[@id=\"address2\"]")).sendKeys("Santor");
 		driver.findElement(By.xpath("//*[@id=\"address3\"]")).sendKeys("Thamaka");
+		js.executeScript("window.scrollBy(0,500)");
 		driver.findElement(By.xpath("//*[@id=\"country\"]")).click();
 		driver.findElement(By.xpath("//*[@id=\"country\"]/option[225]")).click();
 		driver.findElement(By.xpath("//*[@id=\"city\"]")).click();
@@ -70,6 +80,7 @@ class airportTest {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("Shil3aiinu@outlook.com");
 		driver.findElement(By.xpath("//*[@id=\"confirm_email\"]")).sendKeys("Shil3aiinu@outlook.com");
+		js.executeScript("window.scrollBy(0,500)");
 		driver.findElement(By.xpath("//*[@id=\"email_info_form\"]/div[2]/div[3]/input")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//*[@id=\"email_info_form\"]/div[2]/div[2]/input")).click();
@@ -97,6 +108,7 @@ class airportTest {
 		driver.findElement(By.xpath("//*[@id=\"meal_pref\"]/option[14]")).click();
 		driver.findElement(By.xpath("//*[@id=\"language_pref\"]")).click();
 		driver.findElement(By.xpath("//*[@id=\"language_pref\"]/option[2]")).click();
+		js.executeScript("window.scrollBy(0,500)");
 		driver.findElement(By.xpath("//*[@id=\"pin\"]")).sendKeys("C2373809");
 		driver.findElement(By.xpath("//*[@id=\"confirm_pin\"]")).sendKeys("C2373809");
 		Thread.sleep(5000);
@@ -115,11 +127,14 @@ class airportTest {
 		String result15 = driver.findElement(By.xpath("//*[@id=\"rop-app\"]/div/div/div[1]/div[2]/div/div/div[5]/div/div[1]")).getText();
 		assertEquals("ความประสงค์ของท่านกับบริการบนเครื่อง", result15);
 		String result16 = driver.findElement(By.xpath("//*[@id=\"rop-app\"]/div/div/div[1]/div[2]/div/div/div[5]/div/div[2]")).getText();
-		assertEquals("ความประสงค์ในการรับข้อมูลข่าวสาร", result16);
+		assertEquals("ความประสงค์ในการรับข้อมูลข่าวสาร", result16);   
+		File SrcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
+		FileUtils.copyFile(SrcFile, new File(".//Screenshot/screen.png"));
 		Thread.sleep(3000);
 		driver.close();
 		
 	}
+	
 	
 	@Disabled
 	void testAir02Error() throws InterruptedException {
